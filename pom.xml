@@ -102,7 +102,7 @@
                 <artifactId>frontend-maven-plugin</artifactId>
                 <version>1.15.0</version>
                 <configuration>
-                    <nodeVersion>v20.9.0</nodeVersion>
+                    <nodeVersion>v22.0.0</nodeVersion>
 <!--                    <installDirectory>target</installDirectory>-->
                     <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
                 </configuration>

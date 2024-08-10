@@ -1,4 +1,93 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@include mat.core();
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+$light-theme: mat.define-theme((
+  color: (
+    theme-type: light,
+    primary: mat.$azure-palette,
+    tertiary: mat.$azure-palette,
+  ),
+  density: (
+    scale: 0,
+  )
+));
+
+
+$dark-theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$azure-palette,
+    tertiary: mat.$blue-palette,
+  ),
+  density: (
+    scale: 0,
+  )
+));
+
+:root {
+  @include mat.all-component-themes($light-theme);
+
+  --title-color: #4158A6;
+  --icon-color: #4158A6;
+  --divider-color: #1F316F;
+  --mat-sidenav-container-width: 320px;
+}
+
+.dark {
+  @include mat.all-component-colors($dark-theme);
+
+  .mat-form-field-disabled {
+    .country-selector-code {
+      color: #6b6c6f !important;
+      font-weight: 570 !important;
+    }
+  }
+}
+
+.invisible-tabs {
+  mat-tab-header {
+    display: none;
+  }
+}
+
+.menu-backdrop + * .cdk-overlay-pane {
+  width: 300px;
+
+  .mat-mdc-menu-panel {
+    width: 100%;
+    max-width: 300px;
+
+    button {
+      width: 100%;
+      display: flex;
+      flex-direction: row-reverse;
+
+      mat-icon {
+        margin-right: 0 !important;
+        color: var(--mdc-text-button-label-text-color);
+      }
+
+      span {
+        font-size: 16px;
+
+        .active {
+          color: var(--mdc-text-button-label-text-color);
+        }
+      }
+    }
+  }
+}
+
+.page-container {
+  margin-top: 20px;
+}

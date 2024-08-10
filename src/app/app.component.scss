@@ -1,0 +1,75 @@
+mat-sidenav-container {
+  min-height: 100%;
+
+  .menu-container {
+    padding: 20px 10px;
+
+    .title-container {
+      display: flex;
+      justify-content: space-between;
+      align-content: center;
+      padding: 5px 12px;
+
+      h2 {
+        margin: 0;
+        font-weight: 450;
+        color: var(--title-color);
+      }
+
+      button {
+        width: 36px !important;
+        height: 36px !important;
+        padding: 0 !important;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+
+        mat-icon {
+          color: var(--icon-color);
+        }
+
+        & > *[role=img] {
+          width: 28px;
+          height: 28px;
+          font-size: 28px;
+
+          svg {
+            width: 28px;
+            height: 28px;
+          }
+        }
+
+        .mat-mdc-button-touch-target {
+          width: 36px !important;
+          height: 36px !important;
+        }
+      }
+    }
+
+    mat-divider {
+      border-top-color: var(--divider-color);
+      border-top-width: 1.5px;
+    }
+
+    .button-container {
+      display: flex;
+      align-content: center;
+      flex-direction: column;
+      margin-top: 5px;
+      gap: 5px;
+
+      button {
+        justify-content: flex-start;
+        font-size: 20px;
+        height: 50px;
+
+        mat-icon {
+          font-size: 1.50rem;
+          height: 1.50rem;
+          width: 1.50rem;
+          color: var(--icon-color);
+        }
+      }
+    }
+  }
+}

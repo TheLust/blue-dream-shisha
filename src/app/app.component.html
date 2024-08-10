@@ -1,6 +1,138 @@
-<mat-drawer-container class="example-container">
-  <mat-drawer mode="side" opened>Drawer content</mat-drawer>
-  <mat-drawer-content>
-    <router-outlet/>
-  </mat-drawer-content>
-</mat-drawer-container>
+<mat-sidenav-container>
+  <mat-sidenav #menu
+               position="end">
+    <mat-tab-group class="invisible-tabs"
+                   #tabGroup
+                   mat-stretch-tabs="true"
+                   mat-align-tabs="center"
+                   animationDuration="0ms">
+      <mat-tab label="Menu">
+        <div class="menu-container"
+             *ngIf="shouldShowMenu(0, tabGroup.selectedIndex)">
+          <div class="title-container">
+            <h2>{{ 'menu.nav.title' | transloco }}</h2>
+            <button mat-icon-button
+                    (click)="menu.close()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+          <mat-divider/>
+          <div class="button-container">
+            <button mat-button>
+              <mat-icon>home</mat-icon>
+              {{ 'menu.nav.home' | transloco }}
+            </button>
+            <button mat-button>
+              <mat-icon>backpack</mat-icon>
+              {{ 'menu.nav.packs' | transloco }}
+            </button>
+            <button mat-button>
+              <mat-icon>discount</mat-icon>
+              {{ 'menu.nav.promotions' | transloco }}
+            </button>
+            <button mat-button>
+              <mat-icon>question_answer</mat-icon>
+              {{ 'menu.nav.contact' | transloco }}
+            </button>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab label="Account & Options">
+        <div class="menu-container"
+             *ngIf="shouldShowMenu(1, tabGroup.selectedIndex)">
+          <div class="title-container">
+            <h2>{{ 'menu.accountAndPreferences.account.title' | transloco }}</h2>
+            <button mat-icon-button
+                    (click)="menu.close()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+          <mat-divider/>
+          <div class="button-container">
+            <button mat-button>
+              <mat-icon>login</mat-icon>
+              {{ 'menu.accountAndPreferences.account.signIn' | transloco }}
+            </button>
+            <button mat-button>
+              <mat-icon>assignment</mat-icon>
+              {{ 'menu.accountAndPreferences.account.signUp' | transloco }}
+            </button>
+          </div>
+
+          <div class="title-container">
+            <h2>{{ 'menu.accountAndPreferences.preferences.title' | transloco }}</h2>
+          </div>
+          <mat-divider/>
+          <div class="button-container">
+            <button mat-button
+                    [matMenuTriggerFor]="themeMenu">
+              <mat-icon matPrefix
+                        *ngIf="themeService.theme === ThemeEnum.LIGHT">
+                brightness_5
+              </mat-icon>
+              <mat-icon matPrefix
+                        *ngIf="themeService.theme === ThemeEnum.DARK">
+                brightness_2
+              </mat-icon>
+              {{ 'menu.accountAndPreferences.preferences.theme.title' | transloco }}
+            </button>
+            <button mat-button
+                    [matMenuTriggerFor]="languageMenu">
+              <mat-icon>language</mat-icon>
+              {{ 'menu.accountAndPreferences.preferences.language.title' | transloco }}
+            </button>
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-navbar [menu]="menu"
+                [tabGroup]="tabGroup"/>
+    <main>
+      <router-outlet/>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-menu #themeMenu="matMenu" backdropClass="menu-backdrop">
+  <button mat-menu-item
+          (click)="themeService.theme = ThemeEnum.LIGHT">
+    <div [class.active]="themeService.theme === ThemeEnum.LIGHT">
+      {{ 'menu.accountAndPreferences.preferences.theme.light' | transloco }}
+    </div>
+    <mat-icon *ngIf="themeService.theme === ThemeEnum.LIGHT">
+      check
+    </mat-icon>
+  </button>
+  <button mat-menu-item
+          (click)="themeService.theme = ThemeEnum.DARK">
+    <div [class.active]="themeService.theme === ThemeEnum.DARK">
+      {{ 'menu.accountAndPreferences.preferences.theme.dark' | transloco }}
+    </div>
+    <mat-icon *ngIf="themeService.theme === ThemeEnum.DARK">
+      check
+    </mat-icon>
+  </button>
+</mat-menu>
+
+<mat-menu #languageMenu="matMenu" backdropClass="menu-backdrop">
+  <button mat-menu-item
+          (click)="languageService.language = LanguageEnum.ENGLISH">
+    <div [class.active]="languageService.language === LanguageEnum.ENGLISH">
+      {{ 'menu.accountAndPreferences.preferences.language.english' | transloco }}
+    </div>
+    <mat-icon *ngIf="languageService.language === LanguageEnum.ENGLISH">
+      check
+    </mat-icon>
+  </button>
+  <button mat-menu-item
+          (click)="languageService.language = LanguageEnum.ROMANIAN">
+    <div [class.active]="languageService.language === LanguageEnum.ROMANIAN">
+      {{ 'menu.accountAndPreferences.preferences.language.romanian' | transloco }}
+    </div>
+    <mat-icon *ngIf="languageService.language === LanguageEnum.ROMANIAN">
+      check
+    </mat-icon>
+  </button>
+</mat-menu>

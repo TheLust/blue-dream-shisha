@@ -1,0 +1,25 @@
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+
+  #title-container {
+    display: inline-flex;
+    align-items: center;
+
+    #logo-container {
+      width: 40px;
+      position: relative;
+      aspect-ratio: 1/1;
+    }
+
+    #title {
+      color: var(--title-color);
+      font-weight: 450;
+    }
+  }
+
+  #util-container {
+    display: inline-flex;
+    align-items: end;
+  }
+}

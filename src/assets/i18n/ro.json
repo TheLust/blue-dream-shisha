@@ -1,0 +1,33 @@
+{
+  "name": "BlueDreamShisha",
+  "menu": {
+    "nav": {
+      "title": "Meniu",
+      "home": "Acasă",
+      "packs": "Pachete",
+      "promotions": "Promoții",
+      "contact": "Contact"
+    },
+    "accountAndPreferences": {
+      "account": {
+        "title": "Cont",
+        "signIn": "Conectează-te",
+        "signUp": "Înregistrează-te"
+      },
+      "preferences": {
+        "title": "Preferințe",
+        "theme": {
+          "title": "Temă",
+          "light": "Luminoasă",
+          "dark": "Întunecată"
+        },
+        "language": {
+          "title": "Limbă",
+          "english": "Engleză",
+          "romanian": "Română"
+        }
+      }
+    }
+  }
+}
+

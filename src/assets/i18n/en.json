@@ -1,0 +1,32 @@
+{
+  "name": "BlueDreamShisha",
+  "menu": {
+    "nav": {
+      "title": "Menu",
+      "home": "Home",
+      "packs": "Packs",
+      "promotions": "Promotions",
+      "contact": "Contact"
+    },
+    "accountAndPreferences": {
+      "account": {
+        "title": "Account",
+        "signIn": "Sign in",
+        "signUp": "Sign up"
+      },
+      "preferences": {
+        "title": "Preferences",
+        "theme": {
+          "title": "Theme",
+          "light": "Light",
+          "dark": "Dark"
+        },
+        "language": {
+          "title": "Language",
+          "english": "English",
+          "romanian": "Romanian"
+        }
+      }
+    }
+  }
+}
