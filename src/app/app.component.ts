@@ -17,6 +17,8 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
 import { LanguageService } from "./service/language/language.service";
 import { LanguageEnum } from "./model/language-enum";
 import { TranslocoPipe } from "@ngneat/transloco";
+import { SystemService } from "./service/system/system.service";
+import { map, Observable } from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -51,12 +53,18 @@ import { TranslocoPipe } from "@ngneat/transloco";
 })
 export class AppComponent implements OnInit {
 
+  public VERSION: Observable<string> | undefined;
+
   constructor(public themeService: ThemeService,
-              public languageService: LanguageService) {}
+              public languageService: LanguageService,
+              public systemService: SystemService) {}
 
   ngOnInit(): void {
     this.themeService.apply();
     this.languageService.apply();
+    this.VERSION = this.systemService.getVersion().pipe(
+      map(value => value.version)
+    );
   }
 
   public shouldShowMenu(expected: number, actual: number | null) {
