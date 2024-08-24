@@ -1,4 +1,4 @@
-package ro.bluedreamshisha.platform.service.impl;
+package ro.bluedreamshisha.platform.service.impl.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

@@ -12,6 +12,7 @@ public class UserValidator extends BasicValidator<User>{
 
   private final UserService userService;
 
+  @Override
   public void validateAndThrow(User target, Errors errors) {
     validate(target, errors);
 

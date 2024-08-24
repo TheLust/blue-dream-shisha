@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import ro.bluedreamshisha.platform.dto.error.ErrorCode;
 import ro.bluedreamshisha.platform.dto.error.ErrorResponse;
 import ro.bluedreamshisha.platform.model.auth.Role;
-import ro.bluedreamshisha.platform.service.impl.UserDetailsService;
+import ro.bluedreamshisha.platform.service.impl.auth.UserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -47,26 +47,12 @@ public class SecurityConfig {
       .cors(Customizer.withDefaults())
       .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
       .authorizeHttpRequests(request ->
-        request.requestMatchers(
-            "/api/v1/auth/**",
-            "/api/v1/init/**",
-            "/v2/api-docs",
-            "/v3/api-docs",
-            "/v3/api-docs/**",
-            "/swagger-resources",
-            "/swagger-resources/**",
-            "/configuration/ui",
-            "/configuration/security",
-            "/swagger-ui/**",
-            "webjars/**",
-            "swagger-ui.html",
-            "/api/v1/companies/**",
-            "/api/v1/images/**"
-          ).permitAll()
-          .requestMatchers("/api/v1/profile/**")
+        request.requestMatchers("/api/v1/profile/**")
           .authenticated()
           .requestMatchers("/api/v1/cms/**")
           .hasAuthority(Role.ADMIN.name())
+          .anyRequest()
+          .permitAll()
       )
       .httpBasic(Customizer.withDefaults());
 

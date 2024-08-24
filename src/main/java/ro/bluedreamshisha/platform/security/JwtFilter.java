@@ -11,7 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import ro.bluedreamshisha.platform.service.impl.UserDetailsService;
+import ro.bluedreamshisha.platform.service.impl.auth.UserDetailsService;
 
 import java.io.IOException;
 

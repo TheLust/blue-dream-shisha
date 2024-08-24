@@ -10,7 +10,13 @@ public interface Constraints {
     interface Password {
       int MIN = 8;
       int MAX = 256;
-      String PATTERN = "^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\\-=[\\]{};':\"\\\\|,.<>/?]).+$";
+      String PATTERN = "^(?=.*[A-Z])(?=.*[!@#$%^&*()_\\-+=\\[\\]{};:'\",.<>/?]).*$";
+    }
+  }
+
+  interface Account {
+    interface PhoneNumber {
+      String PATTERN = "^\\+\\d{5,17}$";
     }
   }
 }

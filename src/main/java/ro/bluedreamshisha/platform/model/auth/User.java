@@ -1,12 +1,18 @@
 package ro.bluedreamshisha.platform.model.auth;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import ro.bluedreamshisha.platform.annotation.length.Length;
 import ro.bluedreamshisha.platform.model.constant.ConstraintViolationCodes;
 import ro.bluedreamshisha.platform.model.constant.Constraints;
 
@@ -25,19 +31,17 @@ public class User {
 
   @Column(columnDefinition = "VARCHAR(" + Constraints.User.Username.MAX + ")", nullable = false, unique = true)
   @NotBlank(message = ConstraintViolationCodes.REQUIRED)
-  @Size(
+  @Length(
     min = Constraints.User.Username.MIN,
-    max = Constraints.User.Username.MAX,
-    message = ConstraintViolationCodes.LENGTH
+    max = Constraints.User.Username.MAX
   )
   private String username;
 
   @Column(columnDefinition = "VARCHAR(" + Constraints.User.Password.MAX + ")", nullable = false)
   @NotBlank(message = ConstraintViolationCodes.REQUIRED)
-  @Size(
+  @Length(
     min = Constraints.User.Password.MIN,
-    max = Constraints.User.Password.MAX,
-    message = ConstraintViolationCodes.LENGTH
+    max = Constraints.User.Password.MAX
   )
   @Pattern(
     regexp = Constraints.User.Password.PATTERN,
