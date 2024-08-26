@@ -18,6 +18,8 @@ import { LanguageService } from "./service/language/language.service";
 import { LanguageEnum } from "./model/language-enum";
 import { TranslocoPipe } from "@ngneat/transloco";
 import { SystemService } from "./service/api/system/system.service";
+import { MatDialog } from "@angular/material/dialog";
+import { LoginDialogComponent } from "./components/dialog/login-dialog/login-dialog.component";
 
 @Component({
   selector: 'app-root',
@@ -54,18 +56,24 @@ export class AppComponent implements OnInit {
 
   constructor(public themeService: ThemeService,
               public languageService: LanguageService,
-              public systemService: SystemService) {
+              private systemService: SystemService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
     this.themeService.apply();
     this.languageService.apply();
-    this.systemService.getVersion()
-      .then(value => console.log("Spring is running with backend version " + value.version));
+    this.systemService.getVersion().subscribe({
+      next: value => console.log("Spring is running with backend version " + value.version)
+    });
   }
 
   public shouldShowMenu(expected: number, actual: number | null) {
     return expected === actual;
+  }
+
+  public login(): void {
+    this.dialog.open(LoginDialogComponent);
   }
 
   protected readonly ThemeEnum = ThemeEnum;

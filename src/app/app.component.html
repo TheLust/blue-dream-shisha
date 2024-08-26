@@ -49,7 +49,8 @@
           </div>
           <mat-divider/>
           <div class="button-container">
-            <button mat-button>
+            <button mat-button
+                    (click)="login()">
               <mat-icon>login</mat-icon>
               {{ 'menu.accountAndPreferences.account.signIn' | transloco }}
             </button>

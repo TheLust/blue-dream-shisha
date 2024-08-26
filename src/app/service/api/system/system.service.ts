@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
+import { environment } from "../../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
-import { lastValueFrom, Observable } from "rxjs";
-import { ApiService } from "../api-service";
+import { Version } from "../../../model/version";
+import { Observable } from "rxjs";
+import { ApiService } from "../api.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class SystemService extends ApiService{
+export class SystemService extends ApiService {
 
-  private readonly SYSTEM_URL = this.API_URL + "system/"
+  private readonly SYSTEM_URL = environment.apiUrl + "system/"
 
   constructor(private httpClient: HttpClient) {
     super();
   }
 
-  public getVersion(): Promise<{ version: string }> {
-    return lastValueFrom(
-      this.httpClient.get<{ version: string }>(this.SYSTEM_URL + "version")
-    );
+  public getVersion(): Observable<Version> {
+    return this.httpClient.get<Version>(this.SYSTEM_URL + "version");
   }
 }

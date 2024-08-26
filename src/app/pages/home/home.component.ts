@@ -1,6 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import KeenSlider, { KeenSliderInstance } from "keen-slider"
 import { NgClass, NgForOf, NgIf, NgOptimizedImage, NgStyle } from "@angular/common";
+import { SpinnerWrapperComponent } from "../../components/spinner-wrapper/spinner-wrapper.component";
 
 @Component({
   selector: 'app-home',

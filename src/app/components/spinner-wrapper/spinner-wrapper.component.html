@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="content-container">
+    <ng-content/>
+  </div>
+  <div class="transparent-overlay"
+       *ngIf="booleanSpinner"></div>
+  <div class="spinner-container"
+               *ngIf="booleanSpinner">
+  <div class="center">
+    <mat-spinner/>
+  </div>
+</div>
+</div>
