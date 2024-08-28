@@ -44,8 +44,7 @@ public class AuthFacade {
     user.setActive(true);
     user.setEnabled(true);
 
-    userValidator.validateAndThrow(user, bindingResult);
-    userValidator.validateAndThrow(registerRequest, bindingResult);
+    userValidator.validate(user, registerRequest.getConfirmPassword(), bindingResult);
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     userService.insert(user);
 

@@ -5,7 +5,7 @@ import { NavbarComponent } from "./components/navbar/navbar.component";
 import { MatButton, MatIconButton } from "@angular/material/button";
 import { MatDivider } from "@angular/material/divider";
 import { MatToolbar } from "@angular/material/toolbar";
-import { MatIcon } from "@angular/material/icon";
+import { MatIcon, MatIconRegistry } from "@angular/material/icon";
 import { MatTab, MatTabGroup } from "@angular/material/tabs";
 import { NgIf } from "@angular/common";
 import { ThemeService } from "./service/theme/theme.service";
@@ -21,6 +21,8 @@ import { SystemService } from "./service/api/system/system.service";
 import { MatDialog } from "@angular/material/dialog";
 import { LoginDialogComponent } from "./components/dialog/login-dialog/login-dialog.component";
 import { RegisterDialogComponent } from "./components/dialog/register-dialog/register-dialog.component";
+import { DomSanitizer } from "@angular/platform-browser";
+import { AuthDialogData } from "./model/auth-dialog-data";
 
 @Component({
   selector: 'app-root',
@@ -55,10 +57,28 @@ import { RegisterDialogComponent } from "./components/dialog/register-dialog/reg
 })
 export class AppComponent implements OnInit {
 
-  constructor(public themeService: ThemeService,
+  constructor(matIconRegistry: MatIconRegistry,
+              domSanitizer: DomSanitizer,
+              public themeService: ThemeService,
               public languageService: LanguageService,
               private systemService: SystemService,
               private dialog: MatDialog) {
+    matIconRegistry.addSvgIcon(
+      'google',
+      domSanitizer.bypassSecurityTrustResourceUrl('../assets/icon-svg/google.svg')
+    )
+    matIconRegistry.addSvgIcon(
+      'meta',
+      domSanitizer.bypassSecurityTrustResourceUrl('../assets/icon-svg/meta.svg')
+    )
+    matIconRegistry.addSvgIcon(
+      'facebook',
+      domSanitizer.bypassSecurityTrustResourceUrl('../assets/icon-svg/facebook.svg')
+    )
+    matIconRegistry.addSvgIcon(
+      'facebook-simple',
+      domSanitizer.bypassSecurityTrustResourceUrl('../assets/icon-svg/facebook-simple.svg')
+    )
   }
 
   ngOnInit(): void {
@@ -74,11 +94,27 @@ export class AppComponent implements OnInit {
   }
 
   public login(): void {
-    this.dialog.open(LoginDialogComponent);
+    this.dialog.open(LoginDialogComponent)
+      .afterClosed()
+      .subscribe({
+        next: (value: AuthDialogData | undefined) => {
+          if (value && value.redirect) {
+            this.register();
+          }
+        }
+      });
   }
 
   public register(): void {
-    this.dialog.open(RegisterDialogComponent);
+    this.dialog.open(RegisterDialogComponent)
+      .afterClosed()
+      .subscribe({
+        next: (value: AuthDialogData | undefined) => {
+          if (value && value.redirect) {
+            this.login();
+          }
+        }
+      });
   }
 
   protected readonly ThemeEnum = ThemeEnum;

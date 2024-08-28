@@ -1,5 +1,66 @@
 mat-dialog-actions {
-  justify-content: space-between;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  .actions-container {
+    justify-content: center;
+    width: 100%;
+
+    .login-button {
+      width: 100%;
+    }
+
+    .social-media-button-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+
+      ::ng-deep .social-media-icon-button {
+        width: 48px !important;
+        height: 48px !important;
+        padding: 0 !important;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
+
+        & > *[role=img] {
+          width: 40px;
+          height: 40px;
+          font-size: 40px;
+        }
+
+        svg {
+          width: 40px;
+          height: 40px;
+        }
+
+        .mat-mdc-button-touch-target {
+          width: 48px !important;
+          height: 48px !important;
+        }
+      }
+    }
+
+    .actions-footer {
+      display: flex;
+      justify-content: center;
+
+      h4 {
+        color: var(--mdc-dialog-subhead-color, rgba(0, 0, 0, 0.87));
+        font-family: var(--mdc-dialog-subhead-font, inherit);
+        font-weight: 450;
+
+        a {
+          color: var(--mdc-text-button-label-text-color);
+
+          &:hover {
+            opacity: 0.9;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
 }
 
 mat-form-field {

@@ -26,30 +26,49 @@
       <mat-form-field>
         <mat-label>{{ 'field.confirmPassword' | transloco }}</mat-label>
         <input matInput
-               [type]="hidePassword ? 'password' : 'text'"
+               [type]="hideConfirmPassword ? 'password' : 'text'"
                formControlName="confirmPassword">
         <button mat-icon-button
                 matSuffix
                 type="button"
                 class="password-visibility-toggle"
-                (click)="hidePassword = !hidePassword">
-          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                (click)="hideConfirmPassword = !hideConfirmPassword">
+          <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
-        <mat-error>{{ getError('password') }}</mat-error>
+        <mat-error>{{ getError('confirmPassword') }}</mat-error>
       </mat-form-field>
     </form>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button
-            [disabled]="spinner === Visibility.VISIBLE"
-            (click)="login()">
-      {{ 'auth.signIn' | transloco }}
-    </button>
-    <button mat-button
-            [disabled]="spinner === Visibility.VISIBLE"
-            (click)="register()">
-      {{ 'auth.signUp' | transloco }}
-    </button>
+    <div class="actions-container">
+      <button class="register-button"
+              mat-flat-button
+              [disabled]="spinner === Visibility.VISIBLE"
+              (click)="register()">
+        {{ 'auth.signUp' | transloco }}
+      </button>
+      <div class="social-media-button-container">
+        <button class="social-media-icon-button"
+                mat-icon-button>
+          <mat-icon svgIcon="google"></mat-icon>
+        </button>
+        <button class="social-media-icon-button"
+                mat-icon-button>
+          <mat-icon svgIcon="facebook"></mat-icon>
+        </button>
+      </div>
+
+      <mat-divider/>
+
+      <div class="actions-footer">
+        <h4>
+          {{ 'auth.alreadyHaveAccount' | transloco }}
+          <a (click)="login()">
+            {{ 'auth.imperativeSignIn' | transloco }}
+          </a>
+        </h4>
+      </div>
+    </div>
   </mat-dialog-actions>
 </app-spinner-wrapper>
 

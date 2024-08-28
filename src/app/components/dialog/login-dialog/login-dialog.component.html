@@ -31,16 +31,35 @@
     </form>
   </mat-dialog-content>
   <mat-dialog-actions>
-    <button mat-button
-            [disabled]="spinner === Visibility.VISIBLE"
-            (click)="register()">
-      {{ 'auth.signUp' | transloco }}
-    </button>
-    <button mat-button
-            [disabled]="spinner === Visibility.VISIBLE"
-            (click)="login()">
-      {{ 'auth.signIn' | transloco }}
-    </button>
+    <div class="actions-container">
+      <button class="login-button"
+              mat-flat-button
+              [disabled]="spinner === Visibility.VISIBLE"
+              (click)="login()">
+        {{ 'auth.signIn' | transloco }}
+      </button>
+      <div class="social-media-button-container">
+        <button class="social-media-icon-button"
+                mat-icon-button>
+          <mat-icon svgIcon="google"></mat-icon>
+        </button>
+        <button class="social-media-icon-button"
+                mat-icon-button>
+          <mat-icon svgIcon="facebook"></mat-icon>
+        </button>
+      </div>
+
+      <mat-divider/>
+
+      <div class="actions-footer">
+        <h4>
+          {{ 'auth.notHaveAccount' | transloco }}
+          <a (click)="register()">
+            {{ 'auth.imperativeSignUp' | transloco }}
+          </a>
+        </h4>
+      </div>
+    </div>
   </mat-dialog-actions>
 </app-spinner-wrapper>
 

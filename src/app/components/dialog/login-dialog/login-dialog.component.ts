@@ -3,7 +3,7 @@ import { SpinnerWrapperComponent } from "../../spinner-wrapper/spinner-wrapper.c
 import { AuthService } from "../../../service/auth/auth.service";
 import { Visibility } from "../../../model/visibility-enum";
 import { TranslocoPipe } from "@ngneat/transloco";
-import { MatDialogActions, MatDialogContent, MatDialogTitle } from "@angular/material/dialog";
+import { MatDialogActions, MatDialogContent, MatDialogRef, MatDialogTitle } from "@angular/material/dialog";
 import { BaseForm } from "../../form/base-form";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { MatCard, MatCardContent } from "@angular/material/card";
@@ -16,6 +16,8 @@ import { LoginRequest } from "../../../model/request/login-request";
 import { BlueDreamShishaError } from "../../../error/blue-dream-shisha-error";
 import { ErrorResponse } from "../../../error/error-response";
 import { ErrorCode } from "../../../error/error-code";
+import { MatDivider } from "@angular/material/divider";
+import { AuthDialogData } from "../../../model/auth-dialog-data";
 
 @Component({
   selector: 'app-login-dialog',
@@ -36,7 +38,8 @@ import { ErrorCode } from "../../../error/error-code";
     MatDialogTitle,
     MatLabel,
     NgIf,
-    MatError
+    MatError,
+    MatDivider
   ],
   templateUrl: './login-dialog.component.html',
   styleUrl: './login-dialog.component.scss'
@@ -46,7 +49,8 @@ export class LoginDialogComponent extends BaseForm {
   public hidePassword: boolean;
   public badCredentials: boolean;
 
-  constructor(private authService: AuthService) {
+  constructor(private dialogRef: MatDialogRef<LoginDialogComponent>,
+              private authService: AuthService) {
     super(
       new FormGroup({
         username: new FormControl(
@@ -69,7 +73,9 @@ export class LoginDialogComponent extends BaseForm {
   }
 
   register() {
-
+    this.dialogRef.close(<AuthDialogData>{
+      redirect: true
+    });
   }
 
   login() {

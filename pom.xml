@@ -121,7 +121,7 @@
           <nodeVersion>v22.0.0</nodeVersion>
           <installDirectory>target</installDirectory>
 <!--          <workingDirectory></workingDirectory>-->
-          <npmInheritsProxyConfigFromMaven>false</npmInheritsProxyConfigFromMaven>
+          <npmInheritsProxyConfigFromMaven>true</npmInheritsProxyConfigFromMaven>
         </configuration>
         <executions>
           <execution>

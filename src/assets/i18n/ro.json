@@ -11,8 +11,8 @@
     "accountAndPreferences": {
       "account": {
         "title": "Cont",
-        "signIn": "Conectează-te",
-        "signUp": "Înregistrează-te"
+        "signIn": "Autentificare",
+        "signUp": "Înregistrare"
       },
       "preferences": {
         "title": "Preferințe",
@@ -46,12 +46,16 @@
   },
   "auth": {
     "signIn": "Autentificare",
+    "imperativeSignIn": "Conecteaza-te",
     "signUp": "Înregistrare",
+    "imperativeSignUp": "Înregisteaza-te",
     "badCredentials": "Nume de utilizator sau parolă incorecte",
     "finish": "Finalizare",
     "signOut": "Deconectare",
-    "createAccount": "Creează cont",
+    "notHaveAccount": "Nu ai cont?",
+    "alreadyHaveAccount": "Ai deja cont?",
     "cancel": "Anulare"
+
   },
   "violationCode": {
     "required": "este necesar/ă",
