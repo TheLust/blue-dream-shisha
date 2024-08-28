@@ -33,7 +33,7 @@ public class LengthValidator implements ConstraintValidator<Length, String> {
       context.disableDefaultConstraintViolation();
       try {
         context.buildConstraintViolationWithTemplate(objectWriter.writeValueAsString(
-          Map.of("length:", new LengthViolation(actualSize, min, max))
+          Map.of("length", new LengthViolation(actualSize, min, max))
         )).addConstraintViolation();
       } catch (JsonProcessingException e) {
         context.buildConstraintViolationWithTemplate(

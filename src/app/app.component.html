@@ -54,7 +54,8 @@
               <mat-icon>login</mat-icon>
               {{ 'menu.accountAndPreferences.account.signIn' | transloco }}
             </button>
-            <button mat-button>
+            <button mat-button
+                    (click)="register()">
               <mat-icon>assignment</mat-icon>
               {{ 'menu.accountAndPreferences.account.signUp' | transloco }}
             </button>

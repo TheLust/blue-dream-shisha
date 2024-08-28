@@ -20,6 +20,7 @@ import { TranslocoPipe } from "@ngneat/transloco";
 import { SystemService } from "./service/api/system/system.service";
 import { MatDialog } from "@angular/material/dialog";
 import { LoginDialogComponent } from "./components/dialog/login-dialog/login-dialog.component";
+import { RegisterDialogComponent } from "./components/dialog/register-dialog/register-dialog.component";
 
 @Component({
   selector: 'app-root',
@@ -74,6 +75,10 @@ export class AppComponent implements OnInit {
 
   public login(): void {
     this.dialog.open(LoginDialogComponent);
+  }
+
+  public register(): void {
+    this.dialog.open(RegisterDialogComponent);
   }
 
   protected readonly ThemeEnum = ThemeEnum;

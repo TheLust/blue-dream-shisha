@@ -31,6 +31,8 @@ export class BaseForm {
       message: err.message,
       errorCode: ErrorCode[err.errorCode as keyof typeof ErrorCode],
       errors: err.errors
+        ? new Map<string, string>(Object.entries(err.errors))
+        : undefined
     };
   }
 
@@ -51,7 +53,7 @@ export class BaseForm {
     return this.interpolateErrorMessage(translatedMessageTemplate, value);
   }
 
-  public putErrors(errorResponse: any): void {
+  public putErrors(errorResponse: ErrorResponse): void {
     if (!errorResponse.errorCode || (errorResponse.errorCode && errorResponse.errorCode !== ErrorCode.VALIDATION_ERROR)) {
       throw new Error("Cannot put errors because errorCode is not" + ErrorCode.VALIDATION_ERROR);
     }
@@ -67,23 +69,12 @@ export class BaseForm {
         let error: ValidationErrors;
         if (validationErrorCode.includes('length')) {
           error = {length: true} as ValidationErrors;
-          const contentRegex = /\(([^)]+)\)/;
-          const contentMatch = contentRegex.exec(validationErrorCode);
-          if (!contentMatch) {
-            throw new Error("Constraint length does not have a body");
-          }
+          const lengthError: any = JSON.parse(validationErrorCode);
+          const errorData: any = lengthError.length;
 
-          const content = contentMatch[1];
-
-          const regex = /min:(\d+), max:(\d+)/;
-          const match = content.match(regex);
-          if (!match) {
-            throw new Error("Cannot extract values from length constraint content");
-          }
-
-          const min: number = parseFloat(match[1]);
-          const max: number = parseFloat(match[2]);
-          const current: number = (control.getRawValue() as string).length;
+          const min: number = errorData.min;
+          const max: number = errorData.max;
+          const current: number = errorData.actual;
 
           if (current < min) {
             error = {minlength: {requiredLength: min}} as ValidationErrors;

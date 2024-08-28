@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { ApiService } from "../api/api.service";
 import { lastValueFrom } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { AuthRequest } from "../../model/request/auth-request";
+import { LoginRequest } from "../../model/request/login-request";
 import { environment } from "../../../environments/environment";
+import { RegisterRequest } from "../../model/request/register-request";
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,15 @@ export class AuthService extends ApiService {
     super();
   }
 
-  public login(authRequest: AuthRequest): Promise<string> {
+  public login(loginRequest: LoginRequest): Promise<string> {
     return lastValueFrom(
-      this.httpClient.post<string>(this.AUTH_URL + "login", authRequest)
+      this.httpClient.post<string>(this.AUTH_URL + "login", loginRequest)
+    );
+  }
+
+  public register(registerRequest: RegisterRequest): Promise<string> {
+    return lastValueFrom(
+      this.httpClient.post<string>(this.AUTH_URL + "register", registerRequest)
     );
   }
 }

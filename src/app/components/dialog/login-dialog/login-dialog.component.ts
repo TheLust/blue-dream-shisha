@@ -12,7 +12,7 @@ import { MatIcon } from "@angular/material/icon";
 import { MatInput } from "@angular/material/input";
 import { MatButton, MatIconButton } from "@angular/material/button";
 import { NgIf } from "@angular/common";
-import { AuthRequest } from "../../../model/request/auth-request";
+import { LoginRequest } from "../../../model/request/login-request";
 import { BlueDreamShishaError } from "../../../error/blue-dream-shisha-error";
 import { ErrorResponse } from "../../../error/error-response";
 import { ErrorCode } from "../../../error/error-code";
@@ -78,7 +78,7 @@ export class LoginDialogComponent extends BaseForm {
     }
 
     this.makeRequest(
-      () => this.authService.login(<AuthRequest>this.form.getRawValue())
+      () => this.authService.login(<LoginRequest>this.form.getRawValue())
     ).then(token => console.log(token))
       .catch((err: BlueDreamShishaError) => {
         const errorResponse: ErrorResponse = err.errorResponse;

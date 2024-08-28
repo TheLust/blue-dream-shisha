@@ -1,0 +1,57 @@
+<app-spinner-wrapper [spinner]="spinner">
+  <h2 id="title" mat-dialog-title>{{ 'auth.signUp' | transloco }}</h2>
+  <mat-dialog-content>
+    <form [formGroup]="form">
+      <mat-form-field>
+        <mat-icon matSuffix>person</mat-icon>
+        <mat-label>{{ 'field.username' | transloco }}</mat-label>
+        <input matInput
+               formControlName="username">
+        <mat-error>{{ getError('username') }}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ 'field.password' | transloco }}</mat-label>
+        <input matInput
+               [type]="hidePassword ? 'password' : 'text'"
+               formControlName="password">
+        <button mat-icon-button
+                matSuffix
+                type="button"
+                class="password-visibility-toggle"
+                (click)="hidePassword = !hidePassword">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error>{{ getError('password') }}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>{{ 'field.confirmPassword' | transloco }}</mat-label>
+        <input matInput
+               [type]="hidePassword ? 'password' : 'text'"
+               formControlName="confirmPassword">
+        <button mat-icon-button
+                matSuffix
+                type="button"
+                class="password-visibility-toggle"
+                (click)="hidePassword = !hidePassword">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error>{{ getError('password') }}</mat-error>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button
+            [disabled]="spinner === Visibility.VISIBLE"
+            (click)="login()">
+      {{ 'auth.signIn' | transloco }}
+    </button>
+    <button mat-button
+            [disabled]="spinner === Visibility.VISIBLE"
+            (click)="register()">
+      {{ 'auth.signUp' | transloco }}
+    </button>
+  </mat-dialog-actions>
+</app-spinner-wrapper>
+
+
+

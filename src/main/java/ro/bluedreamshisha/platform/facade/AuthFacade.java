@@ -9,7 +9,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import ro.bluedreamshisha.platform.dto.error.ErrorCode;
-import ro.bluedreamshisha.platform.dto.request.AuthRequest;
+import ro.bluedreamshisha.platform.dto.request.LoginRequest;
+import ro.bluedreamshisha.platform.dto.request.RegisterRequest;
 import ro.bluedreamshisha.platform.exception.BlueDreamShishaException;
 import ro.bluedreamshisha.platform.mapper.Mapper;
 import ro.bluedreamshisha.platform.model.auth.Role;
@@ -30,30 +31,31 @@ public class AuthFacade {
   private final JwtUtils jwtUtils;
   private final PasswordEncoder passwordEncoder;
 
-  public String login(AuthRequest authRequest,
+  public String login(LoginRequest loginRequest,
                       BindingResult bindingResult) {
     userValidator.throwErrors(bindingResult);
-    return generateToken(authRequest);
+    return generateToken(loginRequest);
   }
 
-  public String register(AuthRequest authRequest,
+  public String register(RegisterRequest registerRequest,
                          BindingResult bindingResult) {
-    User user = mapper.toEntity(authRequest);
+    User user = mapper.toEntity(registerRequest);
     user.setRole(Role.CUSTOMER);
     user.setActive(true);
     user.setEnabled(true);
 
     userValidator.validateAndThrow(user, bindingResult);
+    userValidator.validateAndThrow(registerRequest, bindingResult);
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     userService.insert(user);
 
-    return generateToken(authRequest);
+    return generateToken(registerRequest);
   }
 
-  private String generateToken(AuthRequest authRequest) {
+  private String generateToken(LoginRequest loginRequest) {
     UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-      authRequest.getUsername(),
-      authRequest.getPassword()
+      loginRequest.getUsername(),
+      loginRequest.getPassword()
     );
 
     try {
