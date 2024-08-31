@@ -54,7 +54,7 @@ public class SecurityConfig {
           .anyRequest()
           .permitAll()
       )
-      .httpBasic(Customizer.withDefaults());
+      .oauth2Login(Customizer.withDefaults());
 
     http.exceptionHandling(exception -> {
       exception.authenticationEntryPoint((request, response, e) -> {

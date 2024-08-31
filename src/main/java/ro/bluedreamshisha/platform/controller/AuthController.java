@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ro.bluedreamshisha.platform.dto.request.LoginRequest;
 import ro.bluedreamshisha.platform.dto.request.RegisterRequest;
+import ro.bluedreamshisha.platform.dto.response.AuthResponse;
 import ro.bluedreamshisha.platform.facade.AuthFacade;
 
 @RestController
@@ -21,8 +22,8 @@ public class AuthController {
   private final AuthFacade authFacade;
 
   @PostMapping("/login")
-  public ResponseEntity<String> login(@RequestBody @Valid LoginRequest loginRequest,
-                                      BindingResult bindingResult) {
+  public ResponseEntity<AuthResponse> login(@RequestBody @Valid LoginRequest loginRequest,
+                                            BindingResult bindingResult) {
     return new ResponseEntity<>(
       authFacade.login(loginRequest, bindingResult),
       HttpStatus.OK
@@ -30,8 +31,8 @@ public class AuthController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<String> register(@RequestBody RegisterRequest registerRequest,
-                                         BindingResult bindingResult) {
+  public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest registerRequest,
+                                               BindingResult bindingResult) {
     return new ResponseEntity<>(
       authFacade.register(registerRequest, bindingResult),
       HttpStatus.OK

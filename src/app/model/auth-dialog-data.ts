@@ -1,4 +1,4 @@
 export interface AuthDialogData {
-  redirect: boolean;
-  token: boolean | undefined;
+  redirect: boolean | false;
+  token: string | undefined;
 }

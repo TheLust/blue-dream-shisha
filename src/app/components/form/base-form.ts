@@ -3,7 +3,6 @@ import { translate } from "@ngneat/transloco";
 import { ErrorCode } from "../../error/error-code";
 import { Visibility } from "../../model/visibility-enum";
 import { ErrorResponse } from "../../error/error-response";
-import { BlueDreamShishaError } from "../../error/blue-dream-shisha-error";
 
 export class BaseForm {
 
@@ -15,18 +14,32 @@ export class BaseForm {
     this.spinner = Visibility.HIDDEN;
   }
 
-  public async makeRequest<T>(request: () => Promise<T>): Promise<T> {
+  public makeRequest<T>(ops: {
+    request: () => Promise<T>,
+    then: (result: T) => void
+  }) {
+    console.log('---------- REQUEST STARTED ----------');
     this.spinner = Visibility.VISIBLE;
-    try {
-      return await request();
-    } catch (err: any) {
-      throw new BlueDreamShishaError(this.mapToErrorResponse(err.error))
-    } finally {
+    ops.request()
+      .then(value => {
+        console.log('---------- REQUEST SUCCEEDED ----------');
+        ops.then(value);
+      }).catch(err => {
+      console.error('---------- REQUEST FAILED ----------');
+      console.error(err);
+      const errorResponse: ErrorResponse = this.mapToErrorResponse(err.error);
+      if (errorResponse.errorCode === ErrorCode.VALIDATION_ERROR) {
+        this.putErrors(errorResponse)
+      } else {
+        throw err;
+      }
+    }).finally(() => {
+      console.log('---------- REQUEST COMPLETED ----------');
       this.spinner = Visibility.HIDDEN;
-    }
+    });
   }
 
-  private mapToErrorResponse(err: any): ErrorResponse {
+  public mapToErrorResponse(err: any): ErrorResponse {
     return <ErrorResponse>{
       message: err.message,
       errorCode: ErrorCode[err.errorCode as keyof typeof ErrorCode],
@@ -55,7 +68,7 @@ export class BaseForm {
 
   public putErrors(errorResponse: ErrorResponse): void {
     if (!errorResponse.errorCode || (errorResponse.errorCode && errorResponse.errorCode !== ErrorCode.VALIDATION_ERROR)) {
-      throw new Error("Cannot put errors because errorCode is not" + ErrorCode.VALIDATION_ERROR);
+      throw new Error("Cannot put errors because errorCode is not " + ErrorCode.VALIDATION_ERROR);
     }
 
     if (!errorResponse.errors) {

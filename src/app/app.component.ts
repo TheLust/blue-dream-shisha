@@ -23,6 +23,7 @@ import { LoginDialogComponent } from "./components/dialog/login-dialog/login-dia
 import { RegisterDialogComponent } from "./components/dialog/register-dialog/register-dialog.component";
 import { DomSanitizer } from "@angular/platform-browser";
 import { AuthDialogData } from "./model/auth-dialog-data";
+import { TokenService } from "./service/token/token.service";
 
 @Component({
   selector: 'app-root',
@@ -61,6 +62,7 @@ export class AppComponent implements OnInit {
               domSanitizer: DomSanitizer,
               public themeService: ThemeService,
               public languageService: LanguageService,
+              public tokenService: TokenService,
               private systemService: SystemService,
               private dialog: MatDialog) {
     matIconRegistry.addSvgIcon(
@@ -84,12 +86,16 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.themeService.apply();
     this.languageService.apply();
-    this.systemService.getVersion().subscribe({
-      next: value => console.log("Spring is running with backend version " + value.version)
-    });
+    this.systemService.getVersion().then(
+      value => console.log("Backend is running with version " + value.version)
+    );
   }
 
-  public shouldShowMenu(expected: number, actual: number | null) {
+  public get isAuthenticated() {
+    return this.tokenService.check();
+  }
+
+  public shouldShowMenu(expected: number, actual: number | null): boolean {
     return expected === actual;
   }
 
@@ -100,6 +106,10 @@ export class AppComponent implements OnInit {
         next: (value: AuthDialogData | undefined) => {
           if (value && value.redirect) {
             this.register();
+          } else {
+            if (value && value.token) {
+              this.tokenService.set(value.token);
+            }
           }
         }
       });
@@ -112,9 +122,17 @@ export class AppComponent implements OnInit {
         next: (value: AuthDialogData | undefined) => {
           if (value && value.redirect) {
             this.login();
+          } else {
+            if (value && value.token) {
+              this.tokenService.set(value.token);
+            }
           }
         }
       });
+  }
+
+  public signOut(): void {
+    this.tokenService.delete();
   }
 
   protected readonly ThemeEnum = ThemeEnum;

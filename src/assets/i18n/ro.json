@@ -12,7 +12,9 @@
       "account": {
         "title": "Cont",
         "signIn": "Autentificare",
-        "signUp": "Înregistrare"
+        "signUp": "Înregistrare",
+        "signOut": "Deconectare",
+        "profile": "Profil"
       },
       "preferences": {
         "title": "Preferințe",

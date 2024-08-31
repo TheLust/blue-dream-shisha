@@ -49,15 +49,29 @@
           </div>
           <mat-divider/>
           <div class="button-container">
-            <button mat-button
+            <button *ngIf="!isAuthenticated"
+                    mat-button
                     (click)="login()">
               <mat-icon>login</mat-icon>
               {{ 'menu.accountAndPreferences.account.signIn' | transloco }}
             </button>
-            <button mat-button
+            <button *ngIf="!isAuthenticated"
+                    mat-button
                     (click)="register()">
               <mat-icon>assignment</mat-icon>
               {{ 'menu.accountAndPreferences.account.signUp' | transloco }}
+            </button>
+            <button *ngIf="isAuthenticated"
+                    mat-button
+                    (click)="{}">
+              <mat-icon>person_outline</mat-icon>
+              {{ 'menu.accountAndPreferences.account.profile' | transloco }}
+            </button>
+            <button *ngIf="isAuthenticated"
+                    mat-button
+                    (click)="signOut()">
+              <mat-icon>logout</mat-icon>
+              {{ 'menu.accountAndPreferences.account.signOut' | transloco }}
             </button>
           </div>
 

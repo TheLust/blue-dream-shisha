@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import ro.bluedreamshisha.platform.dto.error.ErrorCode;
 import ro.bluedreamshisha.platform.dto.request.LoginRequest;
 import ro.bluedreamshisha.platform.dto.request.RegisterRequest;
+import ro.bluedreamshisha.platform.dto.response.AuthResponse;
 import ro.bluedreamshisha.platform.exception.BlueDreamShishaException;
 import ro.bluedreamshisha.platform.mapper.Mapper;
 import ro.bluedreamshisha.platform.model.auth.Role;
@@ -31,14 +32,14 @@ public class AuthFacade {
   private final JwtUtils jwtUtils;
   private final PasswordEncoder passwordEncoder;
 
-  public String login(LoginRequest loginRequest,
-                      BindingResult bindingResult) {
+  public AuthResponse login(LoginRequest loginRequest,
+                            BindingResult bindingResult) {
     userValidator.throwErrors(bindingResult);
-    return generateToken(loginRequest);
+    return new AuthResponse(generateToken(loginRequest));
   }
 
-  public String register(RegisterRequest registerRequest,
-                         BindingResult bindingResult) {
+  public AuthResponse register(RegisterRequest registerRequest,
+                               BindingResult bindingResult) {
     User user = mapper.toEntity(registerRequest);
     user.setRole(Role.CUSTOMER);
     user.setActive(true);
@@ -48,7 +49,7 @@ public class AuthFacade {
     user.setPassword(passwordEncoder.encode(user.getPassword()));
     userService.insert(user);
 
-    return generateToken(registerRequest);
+    return new AuthResponse(generateToken(registerRequest));
   }
 
   private String generateToken(LoginRequest loginRequest) {

@@ -26,6 +26,11 @@ public class UserValidator extends BasicValidator<User> {
 
     if (!target.getPassword().equals(confirmPassword)) {
       errors.rejectValue("confirmPassword", ConstraintViolationCodes.MATCH);
+    } else {
+      errors.getFieldErrors()
+        .stream()
+        .filter(fieldError -> "password".equals(fieldError.getField()) && fieldError.getCode() != null)
+        .forEach(fieldError -> errors.rejectValue("confirmPassword", fieldError.getCode()));
     }
 
     throwErrors(errors);
